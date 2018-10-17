@@ -8,6 +8,11 @@ import numpy as np
 import cv2 
 import matplotlib.pyplot as plt
 
+def load_classes(namesfile):
+    fp = open(namesfile, "r")
+    names = fp.read().split("\n")[:-1]
+    return names
+
 
 
 def count_parameters(model):

@@ -13,11 +13,6 @@ from darknet import Darknet
 import pickle as pkl
 import pandas as pd
 import random
-def load_classes(namesfile):
-    fp = open(namesfile, "r")
-    names = fp.read().split("\n")[:-1]
-    return names
-
 
 def arg_parse():
     """
