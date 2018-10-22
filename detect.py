@@ -116,10 +116,11 @@ def prep_image(img, inp_dim):
     Returns a Variable 
     """
 
-    img = cv2.resize(img, (inp_dim, inp_dim))
+    img = letterbox_image(img, (inp_dim, inp_dim))
     img = img[:,:,::-1].transpose((2,0,1)).copy()
     img = torch.from_numpy(img).float().div(255.0).unsqueeze(0)
     return img
+
 
 #PyTorch Variables for images
 im_batches = list(map(prep_image, loaded_ims, [inp_dim for x in range(len(imlist))]))
