@@ -6,14 +6,19 @@ import os
 class YOLO(object):
     def __init__(self, cfgfile, weightfile = ''):
         self.net = Darknet(cfgfile, weightfile)
-        self.net.device = torch.device("cpu")
-        # CUDA = torch.cuda.is_available()
-        CUDA = False
+        device = torch.device("cpu")
+        print('current cuda device:', device)
+        CUDA = torch.cuda.is_available()
+        # CUDA = False
+        print('memory allocated:', torch.cuda.memory_allocated())
 
         if CUDA:
-            self.net.device = torch.device('cuda')
-            print('current cuda device:', self.net.device)
-            self.net.to(device=self.net.device)
+            device = torch.device('cuda')
+
+            print('current cuda device:', device)
+            print('max mem allocated', torch.cuda.max_memory_allocated())
+            self.net = self.net.cuda()
+            print('memory allocated:', torch.cuda.memory_allocated()/(1024*1024), 'MB')
 
     def compare_weights(self, file1, file2):
         import filecmp
