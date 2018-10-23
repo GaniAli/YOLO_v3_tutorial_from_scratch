@@ -100,7 +100,7 @@ class Darknet(nn.Module):
 
                 #Transform 
                 x = x.data
-                x = predict_transform(x, inp_dim, anchors, num_classes, CUDA)
+                x = predict_transform(x, inp_dim, anchors, num_classes, CUDA, self.device)
                 if not write:              #if no collector has been intialised. 
                     detections = x
                     write = 1
