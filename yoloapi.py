@@ -7,7 +7,7 @@ class YOLO(object):
     def __init__(self, cfgfile, weightfile = ''):
         self.net = Darknet(cfgfile, weightfile)
         self.net.device = torch.device("cpu")
-        CUDA = torch.cuda.is_available()
+        # CUDA = torch.cuda.is_available()
 
 
         if CUDA:
