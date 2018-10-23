@@ -52,7 +52,7 @@ def bbox_iou(box1, box2):
     iou = inter_area / (b1_area + b2_area - inter_area)
     
     return iou
-def predict_transform(prediction, inp_dim, anchors, num_classes, CUDA = True, cuda_device):
+def predict_transform(prediction, inp_dim, anchors, num_classes, CUDA = True, cuda_device = torch.device("cpu")):
     print('prediction', prediction.size())
     print('inp_dim', inp_dim)
     print('anchors', anchors)
