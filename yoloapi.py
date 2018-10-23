@@ -8,7 +8,7 @@ class YOLO(object):
         self.net = Darknet(cfgfile, weightfile)
         self.net.device = torch.device("cpu")
         # CUDA = torch.cuda.is_available()
-
+        CUDA = False
 
         if CUDA:
             self.net.device = torch.device('cuda')
