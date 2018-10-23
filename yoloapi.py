@@ -10,7 +10,7 @@ class YOLO(object):
         print('current cuda device:', device)
         CUDA = torch.cuda.is_available()
         # CUDA = False
-        print('memory allocated:', torch.cuda.memory_allocated())
+        # print('memory allocated:', torch.cuda.memory_allocated())
 
         if CUDA:
             # device = torch.device('cuda')
