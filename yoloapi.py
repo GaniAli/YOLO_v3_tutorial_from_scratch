@@ -6,7 +6,15 @@ import os
 class YOLO(object):
     def __init__(self, cfgfile, weightfile = ''):
         self.net = Darknet(cfgfile, weightfile)
-        self.device = torch.device("cpu")
+        self.net.device = torch.device("cpu")
+        CUDA = torch.cuda.is_available()
+
+
+        if CUDA:
+            self.net.device = torch.device('cuda')
+            print('current cuda device:', self.net.device)
+            self.net.to(device=self.net.device)
+
     def compare_weights(self, file1, file2):
         import filecmp
         are_same = filecmp.cmp(file1, file2, shallow=False)
@@ -41,11 +49,8 @@ class YOLO(object):
         
 
 model = YOLO('cfg/yolov3.cfg', 'yolov3.weights')
-# CUDA = False
-CUDA = torch.cuda.is_available()
-print('current cuda device:', torch.cuda.current_device())
-if CUDA:
-    model.net.cuda()
+
+
 model.net.save_weights('yolov3_train.weights')
 model.compare_weights('yolov3.weights', 'yolov3_train.weights')
 
