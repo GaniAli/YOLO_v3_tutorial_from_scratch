@@ -16,7 +16,7 @@ class YOLO(object):
             device = torch.device('cuda')
 
             print('current cuda device:', device)
-            print('max mem allocated', torch.cuda.max_memory_allocated())
+            # print('max mem allocated', torch.cuda.max_memory_allocated())
             self.net = self.net.cuda()
             print('memory allocated:', torch.cuda.memory_allocated()/(1024*1024), 'MB')
 
