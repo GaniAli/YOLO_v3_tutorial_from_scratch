@@ -40,22 +40,36 @@ class YOLO(object):
         return loaded_ims
         
 
-# model = YOLO('cfg/yolov3.cfg', 'yolov3.weights')
+model = YOLO('cfg/yolov3.cfg', 'yolov3.weights')
+CUDA = False
 # CUDA = torch.cuda.is_available()
-# if CUDA:
-#     model.net.cuda()
-# model.net.save_weights('yolov3_train.weights')
-# model.compare_weights('yolov3.weights', 'yolov3_train.weights')
+if CUDA:
+    model.net.cuda()
+model.net.save_weights('yolov3_train.weights')
+model.compare_weights('yolov3.weights', 'yolov3_train.weights')
 
 
 import torchvision.datasets as dset
 import torchvision.transforms as transforms
-cap = dset.CocoCaptions(root = 'det',
-                        annFile = 'coco/annotations/instances_train2014.json',
-                        transform=transforms.ToTensor())
+print('Importing COCO')
+start = time.time()
+cap = dset.CocoDetection(
+        root = 'scripts/coco/images/val2014/',
+        annFile = 'scripts/coco/annotations/instances_val2014.json',
+        transform=transforms.ToTensor())
 
+print('Import time', time.time() - start)
 print('Number of samples: ', len(cap))
 img, target = cap[3] # load 4th sample
 
+
 print("Image Size: ", img.size())
-print(transformsget)
+print(target)
+
+
+data_loader = torch.utils.data.DataLoader(
+                    cap,
+                    batch_size=4,
+                    shuffle=True,
+                    num_workers=4)
+
